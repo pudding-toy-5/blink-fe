@@ -1,11 +1,17 @@
 import Layout from '@/shared/ui/layout/Layout';
 import MonthSelector from '@/features/expense/ui/MonthSelector';
+import { Button } from '@/components/ui/button';
+import { Settings } from 'lucide-react';
+import Logo from '@/shared/ui/icons/Logo';
 
 const ExpensesPage: React.FC = () => {
   return (
     <Layout>
-      <header>
-        <h1>ExpensesPage</h1>
+      <header className='flex flex-row items-center px-5 py-4'>
+        <Logo />
+        <Button variant='ghost' className='ml-auto'>
+          <Settings />
+        </Button>
       </header>
       <main>
         <MonthSelector />
