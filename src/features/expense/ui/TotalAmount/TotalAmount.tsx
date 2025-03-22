@@ -1,7 +1,7 @@
-import { useExpenseStore } from '@/features/expense/model/useExpenseStore';
+import { useTotalAmount } from '@/features/expense/api/useExpenseQuery';
 
 const TotalAmount: React.FC = () => {
-  const totalAmount = useExpenseStore((state) => state.totalAmount);
+  const { totalAmount } = useTotalAmount();
 
   return (
     <div className='flex flex-col'>
