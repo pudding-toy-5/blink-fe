@@ -48,6 +48,10 @@ export default defineConfig({
         // types
         '**/*.d.ts',
         '**/types.ts',
+        '**/types/**',
+        // index
+        '**/index.tsx',
+        '**/index.ts',
       ],
     },
   },
