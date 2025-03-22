@@ -1,28 +1,32 @@
 import { describe, it } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { Expense } from '@/features/expense/model/types';
+import { Expense } from '@/features/expense/model/types/Expense';
 
 import DailyExpenseRecord from './DailyExpenseRecord';
+import { Category } from '@/features/expense/model/types/Category';
 
 describe('DailyExpenseRecord', () => {
   const expenseProps: Omit<Expense, 'date'> = {
-    id: 'test-id',
-    category: 'test-category',
+    uid: 'test-id',
+    category: undefined,
+    providedCategory: undefined,
     amount: 1234567890,
     memo: 'description',
   };
 
   const renderDailyExpenseRecord = ({
-    id,
+    uid,
     category,
+    providedCategory,
     amount,
     memo,
   }: Omit<Expense, 'date'>) => {
     return render(
       <DailyExpenseRecord
-        id={id}
+        uid={uid}
         category={category}
+        providedCategory={providedCategory}
         amount={amount}
         memo={memo}
       />
@@ -34,14 +38,15 @@ describe('DailyExpenseRecord', () => {
     const listItem = getByRole('listitem');
 
     expect(listItem).toBeInTheDocument();
-    expect(listItem).toHaveAttribute('id', expenseProps.id);
+    expect(listItem).toHaveAttribute('id', expenseProps.uid);
     expect(listItem).toHaveAttribute(
       'aria-labelledby',
-      `expense-${expenseProps.id}`
+      `expense-${expenseProps.uid}`
     );
   });
 
   it('renders category with label and text.', () => {
+    const category: Category = { uid: 'category-uid', name: 'test category' };
     const { getByLabelText, getByText } = renderDailyExpenseRecord({
       ...expenseProps,
     });
@@ -49,8 +54,19 @@ describe('DailyExpenseRecord', () => {
     const categoryLabel = getByLabelText('지출 카테고리');
     expect(categoryLabel).toBeInTheDocument();
 
-    const category = getByText(expenseProps.category);
-    expect(category).toBeInTheDocument();
+    const categoryElement = getByText(category.name);
+    expect(categoryElement).toBeInTheDocument();
+  });
+
+  it('renders providedCategory with label and text.', () => {
+    const pCategory = 'providedCategory-test';
+    const { getByText } = renderDailyExpenseRecord({
+      ...expenseProps,
+      providedCategory: pCategory,
+    });
+
+    const categoryElement = getByText(pCategory);
+    expect(categoryElement).toBeInTheDocument();
   });
 
   it('renders amount with label and localeString.', () => {
