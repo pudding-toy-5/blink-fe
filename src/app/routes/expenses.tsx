@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
 import Layout from '@/shared/ui/layout/Layout';
@@ -24,8 +24,6 @@ export function ExpensesPage() {
     year: current.getFullYear(),
     month: current.getMonth() + 1,
   });
-
-  useEffect(() => {}, [period, setPeriod]);
 
   return (
     <Layout>
