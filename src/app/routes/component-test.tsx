@@ -12,7 +12,9 @@ export const Route = createFileRoute('/component-test')({
 function RouteComponent() {
   const [value, setValue] = React.useState<string>('');
 
-  const handleChange = (newValue: string) => setValue(newValue);
+  const handleChange = (newValue: string) => {
+    setValue(newValue);
+  };
 
   return (
     <Layout>
